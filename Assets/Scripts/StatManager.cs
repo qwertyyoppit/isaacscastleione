@@ -1,14 +1,17 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class StatManager : MonoBehaviour
 {
-    public int HeartContainers;
-    public int Hearts;
-    public int MagicHearts;
+    private Dictionary<string, float /*IStat?*/> statValues;
 
-    public float Damage;
+    private void GetStat(string statType)
+    {
 
-    public float Firerate;
+    }
 
-    public float Speed;
+    public void ApplyStat()
+    {
+
+    }
 }
