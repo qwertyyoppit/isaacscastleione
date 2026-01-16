@@ -14,6 +14,10 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 movement;
 
+    private Vector3 lookPoint;
+
+    public bool FacesMouse = false;
+
     private bool moving => movement.sqrMagnitude > 0;
 
     private InputAction sprintAction;
@@ -29,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        FacesMouse = input.actions["Primary"].inProgress || input.actions["Special"].inProgress;
         movement = input.actions["Move"].ReadValue<Vector2>().normalized;
 
         var moveDir = new Vector3(movement.x, 0, movement.y);
@@ -39,8 +44,15 @@ public class PlayerMovement : MonoBehaviour
 
         rb.linearVelocity = Vector3.MoveTowards(rb.linearVelocity, target, delta * Time.deltaTime);
 
-        var rbMove = rb.linearVelocity;
-        rbMove.y = 0;
-        transform.forward = Vector3.RotateTowards(transform.forward, rbMove, TurnSpeed * Time.deltaTime, 0.0f);
+        if (moving)
+            lookPoint = rb.linearVelocity;
+        if (FacesMouse)
+        {
+            var mouseRay = cam.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(mouseRay, out var info, float.MaxValue, LayerMask.GetMask("Ground")))
+                lookPoint = (info.point - transform.position).normalized;
+        }
+        lookPoint.y = transform.forward.y;
+        transform.forward = Vector3.RotateTowards(transform.forward, lookPoint, TurnSpeed * Time.deltaTime, 0.0f);
     }
 }
