@@ -6,7 +6,9 @@ public class PlayerAttack : MonoBehaviour
     private PlayerInput input;
     private Animator animator;
 
-    [SerializeField] private BoxCollider hurtBox;
+    [SerializeField] private Transform gripPoint;
+
+    private Hurtbox[] hurtboxes;
 
     public float AttackDuration;
 
@@ -17,15 +19,21 @@ public class PlayerAttack : MonoBehaviour
     private void Start()
     {
         input = FindFirstObjectByType<PlayerInput>();
-        animator = GetComponent<Animator>();
+        animator = gripPoint.GetComponent<Animator>();
 
         attackAction = input.actions["Primary"];
+
+        hurtboxes = gripPoint.GetComponentsInChildren<Hurtbox>();
+
+        foreach (var hurtbox in hurtboxes)
+        {
+            hurtbox.OnHit += OnHit;
+        }
     }
 
     private void Attack()
     {
         attackLifetime = AttackDuration;
-        hurtBox.enabled = true;
         animator.SetTrigger("attack");
     }
 
@@ -35,15 +43,14 @@ public class PlayerAttack : MonoBehaviour
         if (attackLifetime == 0)
         {
             animator.ResetTrigger("attack");
-            hurtBox.enabled = false;
             if (attackAction.inProgress)
                 Attack();
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnHit(Hitbox other)
     {
-        if (other.gameObject.CompareTag("Player")) return;
+        if (attackLifetime <= 0) return;
         if (other.TryGetComponent<Rigidbody>(out var hitRb))
         {
             hitRb.AddForce(transform.up * 3 + transform.forward * 5, ForceMode.Impulse);

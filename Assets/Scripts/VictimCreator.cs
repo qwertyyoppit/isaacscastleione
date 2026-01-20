@@ -7,6 +7,8 @@ public class VictimCreator : MonoBehaviour
 
     private int victimCount;
 
+    [SerializeField] private GameObject victimPrefab;
+
     private void Start()
     {
         input = FindAnyObjectByType<PlayerInput>();
@@ -14,9 +16,10 @@ public class VictimCreator : MonoBehaviour
         input.actions["interact"].started += _ =>
         {
             victimCount += 1;
-            var obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            var obj = victimPrefab ? Instantiate(victimPrefab) : GameObject.CreatePrimitive(PrimitiveType.Cube);
             obj.name = $"Victim {victimCount}";
-            obj.AddComponent<Rigidbody>();
+            if (!obj.GetComponent<Rigidbody>())
+                obj.AddComponent<Rigidbody>();
         };
     }
 }

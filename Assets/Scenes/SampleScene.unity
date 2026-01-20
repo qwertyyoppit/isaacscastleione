@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 270807888}
   - component: {fileID: 270807887}
   - component: {fileID: 270807886}
-  - component: {fileID: 270807885}
+  - component: {fileID: 270807890}
   m_Layer: 0
   m_Name: Cube (4)
   m_TagString: Untagged
@@ -154,20 +154,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 845119236}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &270807885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 270807883}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f2e372c04f49d6409d49be59ec8e27e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hurtBox: {fileID: 270807887}
-  AttackDuration: 0.5
 --- !u!95 &270807886
 Animator:
   serializedVersion: 7
@@ -264,6 +250,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 270807883}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &270807890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270807883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a51adbd27e0eb7546b4c0df8bba3e048, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &289937003
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,6 +909,7 @@ GameObject:
   - component: {fileID: 845119232}
   - component: {fileID: 845119231}
   - component: {fileID: 845119230}
+  - component: {fileID: 845119237}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -964,6 +963,7 @@ MonoBehaviour:
   Speed: 5
   SprintFactor: 1.5
   TurnSpeed: 12
+  FacesMouse: 0
 --- !u!54 &845119232
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1081,6 +1081,20 @@ Transform:
   - {fileID: 270807884}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &845119237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845119229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f2e372c04f49d6409d49be59ec8e27e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gripPoint: {fileID: 270807884}
+  AttackDuration: 0.5
 --- !u!1 &1219455707
 GameObject:
   m_ObjectHideFlags: 0
@@ -1110,6 +1124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e99fb4e77525cfc4bb9d447fdaadc15f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  victimPrefab: {fileID: 7364429290113286443, guid: 35716acf917c9614f9ad968bc9ff0596, type: 3}
 --- !u!4 &1219455709
 Transform:
   m_ObjectHideFlags: 0
