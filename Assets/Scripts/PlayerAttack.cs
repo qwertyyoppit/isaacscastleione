@@ -54,7 +54,6 @@ public class PlayerAttack : MonoBehaviour
         if (other.TryGetComponent<Rigidbody>(out var hitRb))
         {
             hitRb.AddForce(transform.up * 3 + transform.forward * 5, ForceMode.Impulse);
-            other.gameObject.name += " (violated)";
             attackLifetime = 0;
         }
     }
