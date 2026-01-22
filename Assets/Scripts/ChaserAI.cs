@@ -9,10 +9,10 @@ public class ChaserAI : MonoBehaviour
 
     public float AttackDuration;
 
-    private float attackLifetime;
+    [SerializeField] private float attackLifetime;
 
     private Rigidbody rb;
-    private Transform gripPoint;
+    [SerializeField] private Transform gripPoint;
     private Animator attackAnimator;
 
     public Transform player;
@@ -50,13 +50,14 @@ public class ChaserAI : MonoBehaviour
             attackAnimator.ResetTrigger("attack");
         }
         else return;
-        if (playerDist > 1)
+        if (playerDist > 2)
         {
-            rb.linearVelocity = playerDir * (Speed * Time.deltaTime);
+            Debug.Log("ack");
+            rb.linearVelocity = playerDir * (Speed) + new Vector3(0, rb.linearVelocity.y, 0);
         }
         else
         {
-            rb.linearVelocity = Vector3.zero;
+            rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
             Attack();
         }
     }

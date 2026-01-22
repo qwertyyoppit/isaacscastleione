@@ -1192,8 +1192,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 5
-  Knockback: 5
+  Knockback: 0
   AttackDuration: 0.5
+  attackLifetime: 0
+  gripPoint: {fileID: 1065736841}
   player: {fileID: 845119236}
 --- !u!114 &1171280295
 MonoBehaviour:

@@ -29,11 +29,11 @@ public class PlayerMovement : MonoBehaviour
         cam = Camera.main;
 
         sprintAction = input.actions["Sprint"];
+        input.actions["Special"].started += _ => FacesMouse = !FacesMouse;
     }
 
     private void Update()
     {
-        FacesMouse = input.actions["Primary"].inProgress || input.actions["Special"].inProgress;
         movement = input.actions["Move"].ReadValue<Vector2>().normalized;
 
         var moveDir = new Vector3(movement.x, 0, movement.y);
@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (moving)
             lookPoint = rb.linearVelocity;
-        if (FacesMouse)
+        if (FacesMouse || input.actions["Primary"].inProgress)
         {
             var mouseRay = cam.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(mouseRay, out var info, float.MaxValue, LayerMask.GetMask("Ground")))
