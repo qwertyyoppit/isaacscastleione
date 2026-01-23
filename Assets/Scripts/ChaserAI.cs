@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class ChaserAI : MonoBehaviour
 {
+    public float Acceleration;
     public float Speed;
+    public float TurnSpeed;
 
     public float Knockback;
 
@@ -42,24 +44,32 @@ public class ChaserAI : MonoBehaviour
         var playerDir = (player.position - transform.position).normalized;
         var playerDist = (player.position - transform.position).magnitude;
 
-        transform.forward = playerDir;
-
         attackLifetime = Mathf.Max(0, attackLifetime - Time.deltaTime);
         if (attackLifetime <= 0)
         {
             attackAnimator.ResetTrigger("attack");
         }
         else return;
+        Vector3 moveDir;
         if (playerDist > 2)
         {
-            Debug.Log("ack");
-            rb.linearVelocity = playerDir * (Speed) + new Vector3(0, rb.linearVelocity.y, 0);
+            moveDir = playerDir;
         }
         else
         {
-            rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
+            moveDir = Vector3.zero;
             Attack();
         }
+
+        var delta = Acceleration * Time.deltaTime;
+        var rbHorz = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+        var target = new Vector3(moveDir.x, 0, moveDir.z) * Speed;
+        var change = Vector3.MoveTowards(rbHorz, target, delta) - rbHorz;
+
+        rb.linearVelocity += change;
+
+        rbHorz = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+        transform.forward = Vector3.RotateTowards(transform.forward, rbHorz, TurnSpeed * Time.deltaTime, 0.0f);
     }
 
     private void OnHit(Hitbox other)

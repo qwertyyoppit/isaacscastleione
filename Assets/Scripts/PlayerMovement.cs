@@ -38,11 +38,12 @@ public class PlayerMovement : MonoBehaviour
 
         var moveDir = new Vector3(movement.x, 0, movement.y);
 
-        var delta = Acceleration * (sprintAction.inProgress ? SprintFactor : 1);
-
-        var target = new Vector3(moveDir.x, rb.linearVelocity.y, moveDir.z) * (Speed * (sprintAction.inProgress ? SprintFactor : 1));
-
-        rb.linearVelocity = Vector3.MoveTowards(rb.linearVelocity, target, delta * Time.deltaTime);
+        var delta = Acceleration * Time.deltaTime * (sprintAction.inProgress ? SprintFactor : 1);
+        var rbHorz = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+        var target = new Vector3(moveDir.x, 0, moveDir.z) * (Speed * (sprintAction.inProgress ? SprintFactor : 1));
+        var velChange = Vector3.MoveTowards(rbHorz, target, delta) - rbHorz;
+        // Setting the value directly interferes with physics, so we calculate how much it changes
+        rb.linearVelocity += velChange;
 
         if (moving)
             lookPoint = rb.linearVelocity;
@@ -52,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
             if (Physics.Raycast(mouseRay, out var info, float.MaxValue, LayerMask.GetMask("Ground")))
                 lookPoint = (info.point - transform.position).normalized;
         }
-        lookPoint.y = transform.forward.y;
-        transform.forward = Vector3.RotateTowards(transform.forward, lookPoint, TurnSpeed * Time.deltaTime, 0.0f);
+        lookPoint.y = 0;
+        transform.forward += Vector3.RotateTowards(transform.forward, lookPoint, TurnSpeed * Time.deltaTime, 0.0f) - transform.forward;
     }
 }
