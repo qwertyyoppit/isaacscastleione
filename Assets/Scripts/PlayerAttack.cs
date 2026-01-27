@@ -3,8 +3,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerAttack : MonoBehaviour
 {
+    private Entity ent;
     private PlayerInput input;
     private Animator animator;
+
+    public float Knockback;
+    public float VerticalKnockback;
 
     [SerializeField] private Transform gripPoint;
 
@@ -18,6 +22,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Start()
     {
+        ent = GetComponent<Entity>();
         input = FindFirstObjectByType<PlayerInput>();
         animator = gripPoint.GetComponent<Animator>();
 
@@ -51,11 +56,12 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnHit(Hitbox other)
     {
+        if (other.ent.IFrames.CheckImmunity(ent)) return;
+        other.ent.IFrames.InflictEntityIFrames(ent, attackLifetime);
         if (attackLifetime <= 0) return;
         if (other.TryGetComponent<Rigidbody>(out var hitRb))
         {
-            hitRb.AddForce(transform.up * 3 + transform.forward * 5, ForceMode.Impulse);
-            attackLifetime = 0;
+            hitRb.AddForce(transform.up * VerticalKnockback + transform.forward * Knockback, ForceMode.Impulse);
         }
     }
 }

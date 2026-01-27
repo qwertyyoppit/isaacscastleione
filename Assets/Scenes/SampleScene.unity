@@ -867,7 +867,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1065736841}
   m_Father: {fileID: 1171280301}
   m_LocalEulerAnglesHint: {x: 0, y: -15, z: 0}
 --- !u!1 &832575517
@@ -1120,6 +1121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f2e372c04f49d6409d49be59ec8e27e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Knockback: 4
+  VerticalKnockback: 0
   gripPoint: {fileID: 2112875323}
   AttackDuration: 0.5
 --- !u!114 &845119238
@@ -1148,6 +1151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Faction: {fileID: 11400000, guid: 58d7e1db98d20c644be86b520d54b90a, type: 2}
+  IFrames: {fileID: 0}
 --- !u!1 &877995271
 GameObject:
   m_ObjectHideFlags: 0
@@ -1249,13 +1253,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1065736840}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.13052624, z: -0, w: 0.9914449}
-  m_LocalPosition: {x: 0.5139215, y: 0, z: 1.1729811}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.8000001, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1857569743}
-  m_Father: {fileID: 1171280301}
+  m_Father: {fileID: 718426137}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1065736842
 Animator:
@@ -1273,7 +1277,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
+  m_AnimatePhysics: 1
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -1328,6 +1332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Faction: {fileID: 11400000, guid: 26473086b6aff5744a9591a73e09313f, type: 2}
+  IFrames: {fileID: 0}
 --- !u!54 &1171280297
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1442,7 +1447,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1065736841}
   - {fileID: 718426137}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1461,7 +1465,8 @@ MonoBehaviour:
   Acceleration: 10
   Speed: 2
   TurnSpeed: 12
-  Knockback: 1
+  Knockback: 4
+  VerticalKnockback: 0
   AttackDuration: 0.5
   attackLifetime: 0
   maxTargetDistance: 15
@@ -1546,6 +1551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Faction: {fileID: 11400000, guid: 4c2aeb4c7179c824c89ceef3bb4bc612, type: 2}
+  IFrames: {fileID: 0}
 --- !u!54 &1280730290
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2257,7 +2263,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
+  m_AnimatePhysics: 1
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1

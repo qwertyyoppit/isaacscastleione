@@ -9,6 +9,7 @@ public class ChaserAI : MonoBehaviour
     public float TurnSpeed;
 
     public float Knockback;
+    public float VerticalKnockback;
 
     public float AttackDuration;
 
@@ -75,6 +76,7 @@ public class ChaserAI : MonoBehaviour
         var targetDist = (this.target.position - transform.position).magnitude;
 
         attackLifetime = Mathf.Max(0, attackLifetime - Time.deltaTime);
+        attackAnimator.SetFloat("attackPoint", Mathf.Abs(attackLifetime - AttackDuration) / AttackDuration);
         if (attackLifetime <= 0)
         {
             attackAnimator.ResetTrigger("attack");
@@ -104,11 +106,12 @@ public class ChaserAI : MonoBehaviour
 
     private void OnHit(Hitbox other)
     {
+        if (other.ent.IFrames.CheckImmunity(ent)) return;
+        other.ent.IFrames.InflictEntityIFrames(ent, attackLifetime);
         if (attackLifetime <= 0) return;
         if (other.TryGetComponent<Rigidbody>(out var hitRb))
         {
-            hitRb.AddForce(transform.up * (0.6f * Knockback) + transform.forward * Knockback, ForceMode.Impulse);
-            attackLifetime = 0;
+            hitRb.AddForce(transform.up * VerticalKnockback + transform.forward * Knockback, ForceMode.Impulse);
         }
     }
 }
