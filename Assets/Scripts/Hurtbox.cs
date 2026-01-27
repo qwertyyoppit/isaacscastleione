@@ -15,7 +15,7 @@ public class Hurtbox : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         if (!other.TryGetComponent<Hitbox>(out var hitbox)) return;
-        if (hitbox.ent.Faction == ent.Faction) return;
+        if (!ent.Faction.Attacks(hitbox.ent.Faction)) return;
         OnHit?.Invoke(hitbox);
     }
 }

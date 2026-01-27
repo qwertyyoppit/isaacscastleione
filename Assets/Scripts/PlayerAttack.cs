@@ -34,15 +34,16 @@ public class PlayerAttack : MonoBehaviour
     private void Attack()
     {
         attackLifetime = AttackDuration;
-        animator.SetTrigger("attack");
+        animator.SetBool("attack", true);
     }
 
     private void Update()
     {
         attackLifetime = Mathf.Max(0, attackLifetime - Time.deltaTime);
+        animator.SetFloat("attackPoint", Mathf.Abs(attackLifetime - AttackDuration) / AttackDuration);
         if (attackLifetime == 0)
         {
-            animator.ResetTrigger("attack");
+            animator.SetBool("attack", false);
             if (attackAction.inProgress)
                 Attack();
         }

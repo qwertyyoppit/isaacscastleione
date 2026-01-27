@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
@@ -12,12 +13,14 @@ public class ChaserAI : MonoBehaviour
     public float AttackDuration;
 
     [SerializeField] private float attackLifetime;
+    [SerializeField] private float maxTargetDistance;
 
     private Rigidbody rb;
     [SerializeField] private Transform gripPoint;
     private Animator attackAnimator;
+    private Entity ent;
 
-    public Transform player;
+    private Transform target;
 
     private Hurtbox[] hurtboxes;
 
@@ -25,11 +28,23 @@ public class ChaserAI : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         attackAnimator = gripPoint.GetComponent<Animator>();
+        ent = GetComponent<Entity>();
 
         hurtboxes = GetComponentsInChildren<Hurtbox>();
         foreach (var hurtbox in hurtboxes)
         {
             hurtbox.OnHit += OnHit;
+        }
+
+        StartCoroutine(FindTargetAtRate(0.25f));
+    }
+
+    public IEnumerator FindTargetAtRate(float rate)
+    {
+        while (true)
+        {
+            FindTarget();
+            yield return new WaitForSeconds(rate);
         }
     }
 
@@ -39,10 +54,25 @@ public class ChaserAI : MonoBehaviour
         attackAnimator.SetTrigger("attack");
     }
 
+    private void FindTarget()
+    {
+        Transform closest = null;
+        foreach (var found in Physics.OverlapSphere(transform.position, maxTargetDistance))
+        {
+            if (!found.TryGetComponent<Entity>(out var foundEnt)) continue; //fent
+            if (ent == foundEnt) continue;
+            if (!ent.Faction.Attacks(foundEnt.Faction)) continue;
+
+            if (closest && Vector3.Distance(transform.position, closest.position) < Vector3.Distance(transform.position, found.transform.position)) continue;
+            closest = found.transform;
+        }
+        target = closest;
+    }
+
     private void Update()
     {
-        var playerDir = (player.position - transform.position).normalized;
-        var playerDist = (player.position - transform.position).magnitude;
+        var targetDir = (this.target.position - transform.position).normalized;
+        var targetDist = (this.target.position - transform.position).magnitude;
 
         attackLifetime = Mathf.Max(0, attackLifetime - Time.deltaTime);
         if (attackLifetime <= 0)
@@ -51,9 +81,9 @@ public class ChaserAI : MonoBehaviour
         }
         else return;
         Vector3 moveDir;
-        if (playerDist > 2)
+        if (targetDist > 2)
         {
-            moveDir = playerDir;
+            moveDir = targetDir;
         }
         else
         {
