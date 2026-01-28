@@ -16,4 +16,6 @@ public class Faction : ScriptableObject
     // This has limitations. Example
     // A zombie doesn't attack other zombies, doesn't target critters (but attacks them unintentionally)
     // attacks & targets NPCs, and attacks player but might prioritize player over others
+    
+    // Dooyyy just make the attacking/targeting behavior apart of the ai and not the faction.. . . .  Faction just a means of identifying ykwimsaying??
 }

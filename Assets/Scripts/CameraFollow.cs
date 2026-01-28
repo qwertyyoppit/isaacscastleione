@@ -10,6 +10,7 @@ public class CameraFollow : MonoBehaviour
     [ExecuteAlways]
     private void Update()
     {
+        if (!target) return;
         transform.position += target.position - transform.position + transform.forward * -distance + offset;
     }
 }

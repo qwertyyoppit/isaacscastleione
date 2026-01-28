@@ -10,6 +10,7 @@ public class ChaserAI : MonoBehaviour
 
     public float Knockback;
     public float VerticalKnockback;
+    public float Damage;
 
     public float AttackDuration;
 
@@ -21,7 +22,7 @@ public class ChaserAI : MonoBehaviour
     private Animator attackAnimator;
     private Entity ent;
 
-    private Transform target;
+    private Transform chaseTarget;
 
     private Hurtbox[] hurtboxes;
 
@@ -67,13 +68,13 @@ public class ChaserAI : MonoBehaviour
             if (closest && Vector3.Distance(transform.position, closest.position) < Vector3.Distance(transform.position, found.transform.position)) continue;
             closest = found.transform;
         }
-        target = closest;
+        chaseTarget = closest;
     }
 
     private void Update()
     {
-        var targetDir = (this.target.position - transform.position).normalized;
-        var targetDist = (this.target.position - transform.position).magnitude;
+        var targetDir = ((chaseTarget ? chaseTarget : transform).position - transform.position).normalized;
+        var targetDist = ((chaseTarget ? chaseTarget : transform).position - transform.position).magnitude;
 
         attackLifetime = Mathf.Max(0, attackLifetime - Time.deltaTime);
         attackAnimator.SetFloat("attackPoint", Mathf.Abs(attackLifetime - AttackDuration) / AttackDuration);
@@ -95,8 +96,8 @@ public class ChaserAI : MonoBehaviour
 
         var delta = Acceleration * Time.deltaTime;
         var rbHorz = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-        var target = new Vector3(moveDir.x, 0, moveDir.z) * Speed;
-        var change = Vector3.MoveTowards(rbHorz, target, delta) - rbHorz;
+        var moveTarget = new Vector3(moveDir.x, 0, moveDir.z) * Speed;
+        var change = Vector3.MoveTowards(rbHorz, moveTarget, delta) - rbHorz;
 
         rb.linearVelocity += change;
 
@@ -107,11 +108,7 @@ public class ChaserAI : MonoBehaviour
     private void OnHit(Hitbox other)
     {
         if (other.ent.IFrames.CheckImmunity(ent)) return;
-        other.ent.IFrames.InflictEntityIFrames(ent, attackLifetime);
         if (attackLifetime <= 0) return;
-        if (other.TryGetComponent<Rigidbody>(out var hitRb))
-        {
-            hitRb.AddForce(transform.up * VerticalKnockback + transform.forward * Knockback, ForceMode.Impulse);
-        }
+        ent.Damage(other.ent, Damage, transform.up * VerticalKnockback + transform.forward * Knockback, attackLifetime);
     }
 }

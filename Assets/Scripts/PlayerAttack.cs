@@ -9,6 +9,7 @@ public class PlayerAttack : MonoBehaviour
 
     public float Knockback;
     public float VerticalKnockback;
+    public float Damage;
 
     [SerializeField] private Transform gripPoint;
 
@@ -57,11 +58,7 @@ public class PlayerAttack : MonoBehaviour
     private void OnHit(Hitbox other)
     {
         if (other.ent.IFrames.CheckImmunity(ent)) return;
-        other.ent.IFrames.InflictEntityIFrames(ent, attackLifetime);
         if (attackLifetime <= 0) return;
-        if (other.TryGetComponent<Rigidbody>(out var hitRb))
-        {
-            hitRb.AddForce(transform.up * VerticalKnockback + transform.forward * Knockback, ForceMode.Impulse);
-        }
+        ent.Damage(other.ent, Damage, transform.up * VerticalKnockback + transform.forward * Knockback, attackLifetime);
     }
 }
