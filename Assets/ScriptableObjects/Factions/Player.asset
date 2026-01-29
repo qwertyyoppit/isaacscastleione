@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 453ddfd2f1dabf04d8543a0fffdddb6c, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  Exceptionlist: []
+  Exceptionlist:
+  - {fileID: 11400000, guid: 4c2aeb4c7179c824c89ceef3bb4bc612, type: 2}
   HostileByDefault: 1
