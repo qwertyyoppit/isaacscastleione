@@ -82,27 +82,26 @@ public class ChaserAI : MonoBehaviour
         {
             attackAnimator.ResetTrigger("attack");
         }
-        else return;
-        Vector3 moveDir;
-        if (targetDist > 2)
-        {
-            moveDir = targetDir;
-        }
-        else
-        {
-            moveDir = Vector3.zero;
-            Attack();
-        }
+        var moveDir = targetDir;
+        moveDir.y = 0;
+        moveDir.Normalize();
 
         var delta = Acceleration * Time.deltaTime;
         var rbHorz = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
         var moveTarget = new Vector3(moveDir.x, 0, moveDir.z) * Speed;
+
+        if (targetDist < 2)
+        {
+            moveTarget *= 0;
+            if (attackLifetime <= 0) Attack();
+        }
+
         var change = Vector3.MoveTowards(rbHorz, moveTarget, delta) - rbHorz;
 
         rb.linearVelocity += change;
 
         rbHorz = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-        transform.forward = Vector3.RotateTowards(transform.forward, rbHorz, TurnSpeed * Time.deltaTime, 0.0f);
+        transform.forward = Vector3.RotateTowards(transform.forward, moveDir, TurnSpeed * Time.deltaTime, 0.0f);
     }
 
     private void OnHit(Hitbox other)

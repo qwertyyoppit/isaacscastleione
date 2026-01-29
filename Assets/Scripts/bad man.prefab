@@ -34,7 +34,7 @@ Transform:
   m_GameObject: {fileID: 1042973675594574085}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.53, y: 0, z: 0.78}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -184,12 +184,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Acceleration: 10
-  Speed: 2
+  Speed: 3
   TurnSpeed: 12
-  Knockback: 10
+  Knockback: 2
   VerticalKnockback: 3
   Damage: 10
-  AttackDuration: 0.5
+  AttackDuration: 0.25
   attackLifetime: 0
   maxTargetDistance: 15
   gripPoint: {fileID: 5406304229570963832}
