@@ -141,9 +141,12 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _density: 32.52
-    - _min: 0.83
-    - _offset: 30.7
+    - _density: 15.3
+    - _min: 0.569
+    - _offset: 31
+    - _party: 1
+    - _partyspeed: 0
+    - _partytime: 5
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
@@ -152,5 +155,7 @@ Material:
     - _SkyTint: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Tint: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _background: {r: 0, g: 0, b: 0, a: 0}
+    - _stars: {r: 0, g: 1, b: 0.9381459, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
