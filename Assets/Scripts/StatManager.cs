@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 public class StatManager : MonoBehaviour
 {
-    private Dictionary<string, float /*IStat?*/> statValues;
+    private Dictionary<IStat, List<StatModifier>> statTypeModifier;
 
     private void GetStat(string statType)
     {
 
     }
 
-    public void ApplyStat()
+    public void ApplyStat(StatModifier statModifier)
     {
-
+        statModifier.destroyed += delegate { print("this would be where i'd remove it from the list, if i had any"); };
     }
 }

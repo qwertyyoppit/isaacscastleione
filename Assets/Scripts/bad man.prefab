@@ -72,7 +72,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 42d0119cb2e5b9749b7f7ca7a0c9d04e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -186,10 +186,10 @@ MonoBehaviour:
   Acceleration: 10
   Speed: 3
   TurnSpeed: 12
-  Knockback: 2
+  Knockback: 5
   VerticalKnockback: 3
   Damage: 10
-  AttackDuration: 0.25
+  AttackDuration: 1
   attackLifetime: 0
   maxTargetDistance: 15
   gripPoint: {fileID: 5406304229570963832}
@@ -249,7 +249,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.46}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.56}
+  m_LocalScale: {x: 0.56, y: 0.6, z: 0.56}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5406304229570963832}
@@ -261,7 +261,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2043755154988848550}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &4762558766189756396
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -285,7 +285,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: a92b91f0cad27244cacce0e5b9221af5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
