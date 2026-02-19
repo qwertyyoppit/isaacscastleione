@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerAttack : MonoBehaviour
 {
     private Entity ent;
-    private PlayerInput input;
+    private InputSystem_Actions input;
     private Animator animator;
 
     public float Knockback;
@@ -21,13 +21,27 @@ public class PlayerAttack : MonoBehaviour
 
     private InputAction attackAction;
 
+    private void OnEnable()
+    {
+        input.Enable();
+    }
+
+    private void OnDisable()
+    {
+        input.Disable();
+    }
+
+    private void Awake()
+    {
+        input = new();
+    }
+
     private void Start()
     {
         ent = GetComponent<Entity>();
-        input = FindFirstObjectByType<PlayerInput>();
         animator = gripPoint.GetComponent<Animator>();
 
-        attackAction = input.actions["Primary"];
+        attackAction = input.Player.Primary;
 
         hurtboxes = gripPoint.GetComponentsInChildren<Hurtbox>();
 

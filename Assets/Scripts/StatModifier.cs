@@ -2,10 +2,10 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-class StatModifier
+public class StatModifier
 {
     public StatModifierType ModifierType;
-    public Action destroyed;
+    public Action Destroyed;
 
     public StatModifier(StatModifierType modifierType, IStat stat)
     {
@@ -13,6 +13,6 @@ class StatModifier
     }
     ~StatModifier()
     {
-        destroyed?.Invoke();
+        Destroyed?.Invoke();
     }
 }

@@ -11,18 +11,28 @@ public class PauseManager : MonoBehaviour
     public Action OnPause;
     public Action OnUnpause;
 
-    private PlayerInput input;
+    private InputSystem_Actions input;
     private InputAction pauseAction;
+
+    private void OnEnable()
+    {
+        input.Enable();
+    }
+
+    private void OnDisable()
+    {
+        input.Disable();
+    }
 
     private void Awake()
     {
         Instance = this;
+        input = new();
     }
 
     private void Start()
     {
-        input = FindAnyObjectByType<PlayerInput>();
-        pauseAction = input.actions["Exit"];
+        pauseAction = input.UI.Pause;
 
         pauseAction.started += _ => TogglePause();
     }
