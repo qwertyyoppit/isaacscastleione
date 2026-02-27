@@ -3,12 +3,15 @@ using System.Collections.Generic;
 
 public class StatManager : MonoBehaviour
 {
-    private Dictionary<IStat, List<StatModifier>> statTypeModifier;
-    
+    private Dictionary<IStat, List<StatModifier>> statTypeModifier = new();
 
-    private void GetStat(string statType)
+    private List<IStat> cachedStats = new();
+
+    public List<IStat> BaseStats = new();
+
+    public void GetStat<T>() where T : IStat
     {
-
+        
     }
 
     public void ApplyStat(StatModifier statModifier)
